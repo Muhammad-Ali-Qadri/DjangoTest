@@ -26,7 +26,7 @@ SECRET_KEY = 'r$y#-%$+!kzy)b%lrd_e-&5uyp6@)lp-f@stc41_cet+=-b%_5'
 DEBUG = True
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'https://hotelfuturezz.herokuapp.com/']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'https://thenewfuturehoteel.herokuapp.com']
 
 
 # Application definition
