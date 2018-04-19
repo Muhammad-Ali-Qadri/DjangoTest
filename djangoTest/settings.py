@@ -24,9 +24,8 @@ SECRET_KEY = 'r$y#-%$+!kzy)b%lrd_e-&5uyp6@)lp-f@stc41_cet+=-b%_5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'thefuturehotel.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'thefuturehotel.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -119,6 +118,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/polls/static',
+]
 
 STATIC_URL = '/static/'
 
