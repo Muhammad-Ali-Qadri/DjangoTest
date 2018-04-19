@@ -420,7 +420,7 @@ select option {
 
 .soc_icons ul li a {
     display: block;
-    background: url('../images/soc_icons.png') no-repeat 0px 0px;
+    /*background: url('../images/soc_icons.png') no-repeat 0px 0px;*/
     width: 46px;
     height: 46px;
     -webkit-transition: all 0.3s ease-in-out;
@@ -566,7 +566,7 @@ p.para {
 
 .s_nav1 li a {
     display: block;
-    background: url('../images/s_icons.png') no-repeat 0px 0px;
+    /*background: url('../images/s_icons.png') no-repeat 0px 0px;*/
     width: 32px;
     height: 32px;
     -webkit-transition: all 0.3s ease-in-out;
@@ -1351,13 +1351,13 @@ span.next:hover {
 }
 
 .start:before {
-    content: url(../images/quote-1.png);
+    /*content: url(../images/quote-1.png);*/
     vertical-align: super;
     padding-right: 5px;
 }
 
 .end:after {
-    content: url(../images/quote-2.png);
+    /*content: url(../images/quote-2.png);*/
     vertical-align: super;
     padding-right: 5px;
 }

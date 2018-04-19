@@ -276,7 +276,7 @@ button.ui-button::-moz-focus-inner {
     left: 10px;
     width: 20px;
     height: 20px;
-    background: url(../images/cal.png) no-repeat 0px 100%;
+    /*background: url(../images/cal.png) no-repeat 0px 100%;*/
     cursor: pointer;
 }
 
@@ -284,7 +284,7 @@ button.ui-button::-moz-focus-inner {
     right: 10px;
     width: 20px;
     height: 20px;
-    background: url(../images/cal.png) no-repeat -23px 0px;
+    /*background: url(../images/cal.png) no-repeat -23px 0px;*/
     cursor: pointer;
 }
 
@@ -963,7 +963,7 @@ body .ui-tooltip {
 
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
     border: 1px solid #aaaaaa /*{borderColorActive}*/;
-    background: #ffffff /*{bgColorActive}*/ url(ui-bg_glass_65_ffffff_1x400.png) /*{bgImgUrlActive}*/ 50% /*{bgActiveXPos}*/ 50% /*{bgActiveYPos}*/ repeat-x /*{bgActiveRepeat}*/;
+    /*background: #ffffff !*{bgColorActive}*! url(ui-bg_glass_65_ffffff_1x400.png) !*{bgImgUrlActive}*! 50% !*{bgActiveXPos}*! 50% !*{bgActiveYPos}*! repeat-x !*{bgActiveRepeat}*!;*/
     font-weight: normal /*{fwDefault}*/;
     color: #212121 /*{fcActive}*/;
 }
@@ -986,7 +986,7 @@ body .ui-tooltip {
 
 .ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {
     border: 1px solid #cd0a0a /*{borderColorError}*/;
-    background: #fef1ec /*{bgColorError}*/ url(ui-bg_glass_95_fef1ec_1x400.png) /*{bgImgUrlError}*/ 50% /*{bgErrorXPos}*/ 50% /*{bgErrorYPos}*/ repeat-x /*{bgErrorRepeat}*/;
+    /*background: #fef1ec !*{bgColorError}*! url(ui-bg_glass_95_fef1ec_1x400.png) !*{bgImgUrlError}*! 50% !*{bgErrorXPos}*! 50% !*{bgErrorYPos}*! repeat-x !*{bgErrorRepeat}*!;*/
     color: #cd0a0a /*{fcError}*/;
 }
 
@@ -1735,7 +1735,7 @@ body .ui-tooltip {
 .ui-widget-shadow {
     margin: -8px /*{offsetTopShadow}*/ 0 0 -8px /*{offsetLeftShadow}*/;
     padding: 8px /*{thicknessShadow}*/;
-    background: #aaaaaa /*{bgColorShadow}*/ url(ui-bg_flat_0_aaaaaa_40x100.png) /*{bgImgUrlShadow}*/ 50% /*{bgShadowXPos}*/ 50% /*{bgShadowYPos}*/ repeat-x /*{bgShadowRepeat}*/;
+    /*background: #aaaaaa !*{bgColorShadow}*! url(ui-bg_flat_0_aaaaaa_40x100.png) !*{bgImgUrlShadow}*! 50% !*{bgShadowXPos}*! 50% !*{bgShadowYPos}*! repeat-x !*{bgShadowRepeat}*!;*/
     opacity: .3;
     filter: Alpha(Opacity=30) /*{opacityShadow}*/;
     -moz-border-radius: 8px /*{cornerRadiusShadow}*/;
@@ -1848,6 +1848,6 @@ body .ui-tooltip {
 }
 
 .text-box-light {
-    background: url(../images/calender.png) #394264 no-repeat 95% 50%;
+    /*background: url(../images/calender.png) #394264 no-repeat 95% 50%;*/
     cursor: pointer;
 }
