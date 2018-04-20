@@ -135,3 +135,7 @@ MIDDLEWARE_CLASSES = [
 ]
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+import dj_database_url
+
+DATABASES['default'] = dj_database_url.config(ssl_require=True)
