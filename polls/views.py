@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from .forms import *
+from .models import *
 
 # Create your views here.
 def index(request):
@@ -25,3 +26,13 @@ def login(request):
 
 def signup(request):
     return render(request, "web/signup.html", {})
+
+
+# SIGNING IN FORM FUNCTION
+def signup_register(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+
+        if form.is_valid():
+            user = RestaurantUser()
+            user.name = form.cleaned_data['name']

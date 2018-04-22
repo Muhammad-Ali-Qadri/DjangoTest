@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Create your models here.
 class Room(models.Model):
     # Fields
@@ -101,6 +100,21 @@ class RegistrationDetails(models.Model):
     id = models.AutoField(primary_key=True)
     registration_id = models.ForeignKey('Registration', on_delete=models.SET_NULL, null=True)
     room_id = models.ForeignKey('Room', on_delete=models.SET_NULL, null=True)
+
+    class Meta:
+        ordering = ["id"]
+
+    def __str__(self):
+        return self.id
+
+
+class Review(models.Model):
+    # fields
+    id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey('RestaurantUser', on_delete=models.SET_NULL, null=True)
+    room_id = models.ForeignKey('Room', on_delete=models.SET_NULL, null=True)
+    rating = models.IntegerField(help_text="Rating from 1 to 5")
+    review = models.CharField(max_length=200, help_text="Review description")
 
     class Meta:
         ordering = ["id"]
