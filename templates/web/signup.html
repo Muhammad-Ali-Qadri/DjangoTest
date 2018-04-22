@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         <div class="form-bottom">
-                            <form role="form" action="/signup/register/" method="post" class="login-form">
+                            <form role="form" action="{% url 'signup-register' %}" method="post" class="login-form">
                                 {% csrf_token %}
                                 <div class="form-group">
                                     <label class="sr-only" for="name">Full Name</label>

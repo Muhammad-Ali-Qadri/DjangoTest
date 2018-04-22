@@ -44,4 +44,4 @@ def signup_register(request):
             return render(request, "web/index.html", {})
 
     # TODO: add things to elses
-    return render(request, "web/index.html", {})
+    return render(request, "web/facilities.html", {})
