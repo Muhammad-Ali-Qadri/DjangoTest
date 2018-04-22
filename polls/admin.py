@@ -18,14 +18,18 @@ class RoomAdmin(admin.ModelAdmin):
 
 # display form for adding images
 class AdminImagesForm(forms.ModelForm):
+    image = forms.ImageField(help_text="Image of room to upload")
+
     class Meta:
-        fields = ['Image', 'room_type_id', 'description']
-        widgets = {
-            'Image': forms.ImageField()
-        }
+        fields = '__all__'
 
 
 # admin class for defining images interface
 @admin.register(Images)
 class ImagesAdmin(admin.ModelAdmin):
     form = AdminImagesForm
+    fieldsets = (
+        (None, {
+            'fields': ('image', 'room_type_id', 'description',),
+        }),
+    )
