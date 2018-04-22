@@ -65,12 +65,12 @@ class RestaurantUser(models.Model):
     email = models.EmailField(help_text="Email address of user")
     password = models.CharField(max_length=20, help_text="password of user")
 
-    ROOM_STATUS = (
+    USER_TYPE = (
         ('u', 'User'),
         ('a', 'Admin'),
     )
 
-    user_type = models.CharField(max_length=1, choices=ROOM_STATUS, help_text="room availability")
+    user_type = models.CharField(max_length=1, choices=USER_TYPE, help_text="User type")
 
     class Meta:
         ordering = ["user_type", "id"]

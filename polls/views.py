@@ -36,3 +36,16 @@ def signup_register(request):
         if form.is_valid():
             user = RestaurantUser()
             user.name = form.cleaned_data['name']
+            user.email = form.cleaned_data['email']
+            user.password = form.cleaned_data['password']
+            user.user_type = 'u'
+            user.save()
+            request.session['user_id'] = user.id
+            return render(request, "web/index.html", {})
+        else:
+            pass
+
+    else:
+        pass
+    # TODO: add things to elses
+    return render(request, "web/index.html", {})
