@@ -19,7 +19,7 @@ class Room(models.Model):
         ordering = ["room_number"]
 
     def __str__(self):
-        return self.room_number
+        return str(self.room_number)
 
 
 class Type(models.Model):
@@ -55,7 +55,7 @@ class Images(models.Model):
         ordering = ["id"]
 
     def __str__(self):
-        return self.url
+        return str(self.url)
 
 
 class RestaurantUser(models.Model):
@@ -92,7 +92,7 @@ class Registration(models.Model):
         ordering = ["id"]
 
     def __str__(self):
-        return self.id
+        return self.user_id.name
 
 
 class RegistrationDetails(models.Model):
@@ -105,7 +105,7 @@ class RegistrationDetails(models.Model):
         ordering = ["id"]
 
     def __str__(self):
-        return self.id
+        return str(self.registration_id)
 
 
 class Review(models.Model):
@@ -120,4 +120,4 @@ class Review(models.Model):
         ordering = ["id"]
 
     def __str__(self):
-        return self.id
+        return self.user_id.name
