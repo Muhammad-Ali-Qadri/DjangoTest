@@ -42,10 +42,6 @@ def signup_register(request):
             user.save()
             request.session['user_id'] = user.id
             return render(request, "web/index.html", {})
-        else:
-            pass
 
-    else:
-        pass
     # TODO: add things to elses
     return render(request, "web/index.html", {})
