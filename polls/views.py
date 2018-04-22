@@ -31,17 +31,14 @@ def signup(request):
 # SIGNING IN FORM FUNCTION
 def signup_register(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)
-
-        if form.is_valid():
-            user = RestaurantUser()
-            user.name = form.cleaned_data['name']
-            user.email = form.cleaned_data['email']
-            user.password = form.cleaned_data['password']
-            user.user_type = 'u'
-            user.save()
-            request.session['user_id'] = user.id
-            return render(request, "web/index.html", {})
+        user = RestaurantUser()
+        user.name = request.POST['name']
+        user.email = request.POST['email']
+        user.password = request.POST['password']
+        user.user_type = 'u'
+        user.save()
+        request.session['user_id'] = user.id
+        return render(request, "web/index.html", {})
 
     # TODO: add things to elses
     return render(request, "web/facilities.html", {})
