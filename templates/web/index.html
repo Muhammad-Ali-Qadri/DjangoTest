@@ -150,7 +150,7 @@
                 {% for room in rooms %}
                 <div class="col-md-4 room-sec">
                     {#                    <img src="{% static 'images/pic1.jpg' %}" alt=""/>#}
-                    {% cloudinary room.1.image.public_id crop="fill" %}
+                    {% cloudinary room.1.image.public_id crop="fill" width="320" height="480" %}
                     <h4>{{ room.0.name }}</h4>
                     <p>{{ room.0.description }}</p>
                     <div class="items">
