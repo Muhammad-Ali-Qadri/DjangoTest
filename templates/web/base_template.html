@@ -30,7 +30,7 @@
 					 <li id="facilities_t"><a class="scroll" href="{% url 'facilities' %}">FACILITIES</a></li>
 					 <li id="restaurant_t"><a class="scroll" href="{% url 'restaurant' %}">RESTAURANT</a></li>
 					 <li id="contact_t"><a class="scroll" href="{% url 'contact' %}">CONTACT US</a></li>
-                    {% if user.is_authenticated %}
+                    {% if is_authenticated %}
                         <li id="profile_t"><a class="scroll"
                                               href="{% url 'profile' %}">{{ request.user.profile.username }}</a></li>
                         <li id="logout_t"><a class="scroll" href="{% url 'logout' %}">LOGOUT</a></li>
