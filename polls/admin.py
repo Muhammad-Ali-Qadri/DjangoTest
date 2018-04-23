@@ -5,6 +5,7 @@ from django import forms
 
 admin.site.register(Type)
 admin.site.register(RestaurantUser)
+admin.site.register(Images)
 admin.site.register(Registration)
 admin.site.register(RegistrationDetails)
 
