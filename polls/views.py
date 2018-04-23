@@ -27,6 +27,14 @@ def contact(request):
     return render(request, "web/contact.html", {})
 
 
+def logout(request):
+    return render(request, "web/contact.html", {})
+
+
+def profile(request):
+    return render(request, "web/contact.html", {})
+
+
 # Login for the user
 def my_login(request):
     if request.method == 'POST':

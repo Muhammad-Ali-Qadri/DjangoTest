@@ -28,5 +28,7 @@ urlpatterns = [
     url('^contact/', polls.views.contact, name="contact"),
     url('^login/', polls.views.my_login, name="login"),
     url('^signup/', polls.views.signup, name="signup"),
+    url('^profile/', polls.views.profile, name="profile"),
+    url('^logout/', polls.views.logout, name="logout"),
     url('', polls.views.index, name="index"),
 ]
