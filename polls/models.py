@@ -75,7 +75,7 @@ class Images(models.Model):
 class HotelUserProfile(models.Model):
     # fields
     id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_pic = CloudinaryField(blank=True, help_text="Profile picture of user")
     address = models.CharField(blank=True, help_text="Address of user", max_length=50)
     date_of_birth = models.DateField(blank=True, help_text="Date of birth of user")
@@ -86,7 +86,7 @@ class HotelUserProfile(models.Model):
         verbose_name_plural = "Hotel Users"
 
     def __str__(self):
-        return self.user.first_name + " " + self.user.last_name
+        return self.user_id.first_name + " " + self.user_id.last_name
 
 
 @receiver(post_save, sender=User)
@@ -115,7 +115,7 @@ class Registration(models.Model):
         verbose_name_plural = "Registrations"
 
     def __str__(self):
-        return self.user.user.first_name + " " + self.user.user.last_name + "," + str(id)
+        return self.user.user_id.first_name + " " + self.user.user_id.last_name + "," + str(id)
 
 
 class RegistrationDetails(models.Model):
@@ -147,4 +147,4 @@ class Review(models.Model):
         verbose_name_plural = "Reviews"
 
     def __str__(self):
-        return self.user_id.user.first_name + " " + self.user_id.user.last_name
+        return self.user_id.user_id.first_name + " " + self.user_id.user_id.last_name
