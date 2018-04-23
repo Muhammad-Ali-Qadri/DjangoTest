@@ -33,7 +33,7 @@
                     {% if user.is_authenticated %}
                         <li id="profile_t"><a class="scroll"
                                               href="{% url 'profile' %}">{{ request.user.profile.username }}</a></li>
-                        <li id="logout_t"><a class="scroll" href="{% url 'logout' %}">SIGN UP</a></li>
+                        <li id="logout_t"><a class="scroll" href="{% url 'logout' %}">LOGOUT</a></li>
                     {% else %}
                         <li id="login_t"><a class="scroll" href="{% url 'login' %}">LOGIN</a></li>
                         <li id="signup_t"><a class="scroll" href="{% url 'signup' %}">SIGN UP</a></li>
@@ -91,16 +91,6 @@
 				 Donec vel varius ipsum. Pellentesque vitae mollis massa. </p>
 				 <p>There is no costs or whatsoever so sign up today!</p>
 				 <a href="#">READ MORE</a>
-			 </div>
-			 <div class="member">
-			 <h4>MEMBERS AREA</h4>
-			 <form>
-			 <p>Username</p>
-			 <input type="text" placeholder="" required/>
-			 <p>Password</p>
-			 <input type="password" placeholder="" required/>
-			 <input type="submit" value="LOGIN"/>
-			 </form>
 			 </div>
 			 <div class="clearfix"></div>
 		 </div>
