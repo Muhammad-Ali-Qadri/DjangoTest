@@ -5,7 +5,13 @@ from .models import *
 
 # Create your views here.
 def index(request):
-    return render(request, "web/index.html", {})
+    images = []
+    types = Type.objects.all()
+    for type in types:
+        images.append(type.images_set.first())
+
+    rooms = zip(types, images)
+    return render(request, "web/index.html", {'rooms': rooms})
 
 
 def facilities(request):
@@ -25,11 +31,6 @@ def login(request):
 
 
 def signup(request):
-    return render(request, "web/signup.html", {})
-
-
-# SIGNING IN FORM FUNCTION
-def signup_register(request):
     if request.method == 'POST':
         user = RestaurantUser()
         user.name = request.POST['name']
@@ -39,6 +40,5 @@ def signup_register(request):
         user.save()
         request.session['user_id'] = user.id
         return render(request, "web/index.html", {})
-
-    # TODO: add things to elses
-    return render(request, "web/facilities.html", {})
+    else:
+        return render(request, "web/signup.html", {})

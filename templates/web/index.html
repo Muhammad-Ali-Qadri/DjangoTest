@@ -1,6 +1,6 @@
 {% extends 'web/base_template.html' %}
 {% load staticfiles %}
-
+{% load cloudinary %}
 {% block content %}
 
     <script>
@@ -147,92 +147,38 @@
         <div class="container">
             <h3>Our Room Types</h3>
             <div class="room-grids">
+                {% for room in rooms %}
                 <div class="col-md-4 room-sec">
-                    <img src="{% static 'images/pic1.jpg' %}" alt=""/>
-                    <h4>Standard Double Room</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent scelerisque lectus vitae dui
-                        sollicitudin commodo.</p>
+                    {#                    <img src="{% static 'images/pic1.jpg' %}" alt=""/>#}
+                    {% cloudinary room.1.image.public_id crop="fill" %}
+                    <h4>{{ room.0.name }}</h4>
+                    <p>{{ room.0.description }}</p>
                     <div class="items">
+                        {% if room.0.has_air_conditioning %}
                         <li><a href="#"><span class="img1"> </span></a></li>
+                        {% endif %}
+                        {% if room.0.has_dryer %}
                         <li><a href="#"><span class="img2"> </span></a></li>
+                        {% endif %}
+                        {% if room.0.has_room_service %}
                         <li><a href="#"><span class="img3"> </span></a></li>
+                        {% endif %}
+                        {% if room.0.has_electronic_safe %}
                         <li><a href="#"><span class="img4"> </span></a></li>
+                        {% endif %}
+                        {% if room.0.has_wifi %}
                         <li><a href="#"><span class="img5"> </span></a></li>
+                        {% endif %}
+                        {% if room.0.has_breakfast %}
                         <li><a href="#"><span class="img6"> </span></a></li>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="col-md-4 room-sec">
-                    <img src="{% static 'images/pic2.jpg' %}" alt=""/>
-                    <h4>Supperior Double Room</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent scelerisque lectus vitae dui
-                        sollicitudin commodo.</p>
-                    <div class="items">
-                        <li><a href="#"><span class="img1"> </span></a></li>
-                        <li><a href="#"><span class="img2"> </span></a></li>
-                        <li><a href="#"><span class="img3"> </span></a></li>
-                        <li><a href="#"><span class="img4"> </span></a></li>
-                        <li><a href="#"><span class="img5"> </span></a></li>
-                        <li><a href="#"><span class="img6"> </span></a></li>
-                    </div>
-                </div>
-                <div class="col-md-4 room-sec">
-                    <img src="{% static 'images/pic3.jpg' %}" alt=""/>
-                    <h4>Family Room</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent scelerisque lectus vitae dui
-                        sollicitudin commodo.</p>
-                    <div class="items">
-                        <li><a href="#"><span class="img1"> </span></a></li>
-                        <li><a href="#"><span class="img2"> </span></a></li>
-                        <li><a href="#"><span class="img3"> </span></a></li>
-                        <li><a href="#"><span class="img4"> </span></a></li>
-                        <li><a href="#"><span class="img5"> </span></a></li>
-                        <li><a href="#"><span class="img6"> </span></a></li>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="col-md-4 room-sec">
-                    <img src="{% static 'images/pic4.jpg' %}" alt=""/>
-                    <h4>Standard Single Room</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent scelerisque lectus vitae dui
-                        sollicitudin commodo.</p>
-                    <div class="items">
-                        <li><a href="#"><span class="img1"> </span></a></li>
-                        <li><a href="#"><span class="img2"> </span></a></li>
-                        <li><a href="#"><span class="img3"> </span></a></li>
-                        <li><a href="#"><span class="img4"> </span></a></li>
-                        <li><a href="#"><span class="img5"> </span></a></li>
-                        <li><a href="#"><span class="img6"> </span></a></li>
-                    </div>
-                </div>
-                <div class="col-md-4 room-sec">
-                    <img src="{% static 'images/pic5.jpg' %}" alt=""/>
-                    <h4>Supperior Single Room</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent scelerisque lectus vitae dui
-                        sollicitudin commodo.</p>
-                    <div class="items">
-                        <li><a href="#"><span class="img1"> </span></a></li>
-                        <li><a href="#"><span class="img2"> </span></a></li>
-                        <li><a href="#"><span class="img3"> </span></a></li>
-                        <li><a href="#"><span class="img4"> </span></a></li>
-                        <li><a href="#"><span class="img5"> </span></a></li>
-                        <li><a href="#"><span class="img6"> </span></a></li>
-                    </div>
-                </div>
-                <div class="col-md-4 room-sec">
-                    <img src="{% static 'images/pic6.jpg' %}" alt=""/>
-                    <h4>VIP Room</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent scelerisque lectus vitae dui
-                        sollicitudin commodo.</p>
-                    <div class="items">
-                        <li><a href="#"><span class="img1"> </span></a></li>
-                        <li><a href="#"><span class="img2"> </span></a></li>
-                        <li><a href="#"><span class="img3"> </span></a></li>
-                        <li><a href="#"><span class="img4"> </span></a></li>
-                        <li><a href="#"><span class="img5"> </span></a></li>
-                        <li><a href="#"><span class="img6"> </span></a></li>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
+
+                {% endfor %}
+                {#                <div class="clearfix"></div>#}
+
+                {#                <div class="clearfix"></div>#}
             </div>
         </div>
     </div>

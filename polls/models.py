@@ -1,5 +1,5 @@
 from django.db import models
-
+from cloudinary.models import CloudinaryField
 # Create your models here.
 class Room(models.Model):
     # Fields
@@ -13,7 +13,7 @@ class Room(models.Model):
         ('r', 'Reserved'),
     )
 
-    status = models.CharField(max_length=1, choices=ROOM_STATUS, help_text="room availability")
+    status = models.CharField(max_length=1, choices=ROOM_STATUS, help_text="room availability", blank=True)
 
     class Meta:
         ordering = ["room_number"]
@@ -25,17 +25,21 @@ class Room(models.Model):
 class Type(models.Model):
     # Fields
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50, help_text="Type name of the room")
+    name = models.CharField(max_length=50, help_text="Type name of the room", blank=True)
     capacity = models.IntegerField(help_text="Number of people that can stay")
     price = models.IntegerField(help_text="Price for one night")
-    has_wifi = models.BooleanField()
-    has_room_service = models.BooleanField()
-    has_breakfast = models.BooleanField()
-    has_shuttle_service = models.BooleanField()
-    has_spa = models.BooleanField()
-    has_mini_bar = models.BooleanField()
-    has_gym = models.BooleanField()
-    has_pool = models.BooleanField()
+    description = models.CharField(max_length=200, help_text="Description of the room", blank=True)
+    has_wifi = models.BooleanField(default=False)
+    has_dryer = models.BooleanField(default=False)
+    has_room_service = models.BooleanField(default=False)
+    has_breakfast = models.BooleanField(default=False)
+    has_air_conditioning = models.BooleanField(default=False)
+    has_spa = models.BooleanField(default=False)
+    has_mini_bar = models.BooleanField(default=False)
+    has_gym = models.BooleanField(default=False)
+    has_pool = models.BooleanField(default=False)
+    has_electronic_safe = models.BooleanField(default=False)
+
 
     class Meta:
         ordering = ["id"]
@@ -48,29 +52,29 @@ class Images(models.Model):
     # Fields
     id = models.AutoField(primary_key=True)
     room_type_id = models.ForeignKey('Type', on_delete=models.SET_NULL, null=True)
-    url = models.URLField(help_text="URL of the stored image")
-    description = models.CharField(max_length=100, help_text="Description of the image")
+    image = CloudinaryField(blank=True, help_text="Add room image")
+    description = models.CharField(max_length=100, help_text="Description of the image", blank=True)
 
     class Meta:
         ordering = ["id"]
 
     def __str__(self):
-        return str(self.url)
+        return str(self.id)
 
 
 class RestaurantUser(models.Model):
     # fields
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50, help_text="Type name of the room")
+    name = models.CharField(max_length=50, help_text="Type name of the room", blank=True)
     email = models.EmailField(help_text="Email address of user")
-    password = models.CharField(max_length=20, help_text="password of user")
+    password = models.CharField(max_length=20, help_text="password of user", blank=True)
 
     USER_TYPE = (
         ('u', 'User'),
         ('a', 'Admin'),
     )
 
-    user_type = models.CharField(max_length=1, choices=USER_TYPE, help_text="User type")
+    user_type = models.CharField(max_length=1, choices=USER_TYPE, help_text="User type", blank=True)
 
     class Meta:
         ordering = ["user_type", "id"]
@@ -114,7 +118,7 @@ class Review(models.Model):
     user_id = models.ForeignKey('RestaurantUser', on_delete=models.SET_NULL, null=True)
     room_id = models.ForeignKey('Room', on_delete=models.SET_NULL, null=True)
     rating = models.IntegerField(help_text="Rating from 1 to 5")
-    review = models.CharField(max_length=200, help_text="Review description")
+    review = models.CharField(max_length=200, help_text="Review description", blank=True)
 
     class Meta:
         ordering = ["id"]

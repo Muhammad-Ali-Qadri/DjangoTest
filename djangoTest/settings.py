@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import cloudinary
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'social_django',
     'polls',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -150,3 +152,9 @@ MIDDLEWARE_CLASSES = [
 import dj_database_url
 
 DATABASES['default'] = dj_database_url.config(ssl_require=True)
+
+cloudinary.config(
+    cloud_name="dfl4tcmei",
+    api_key="926143334854586",
+    api_secret="2a9guepMG-gCfzxpSqz46tgmk8U"
+)
