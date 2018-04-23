@@ -82,8 +82,8 @@ class HotelUserProfile(models.Model):
 
     class Meta:
         ordering = ["id"]
-        verbose_name = "User"
-        verbose_name_plural = "Users"
+        verbose_name = "hotel User"
+        verbose_name_plural = "Hotel Users"
 
     def __str__(self):
         return self.user.first_name + " " + self.user.last_name
