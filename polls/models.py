@@ -92,7 +92,7 @@ class HotelUserProfile(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        HotelUserProfile.objects.create(user=instance)
+        HotelUserProfile.objects.create(user_id=instance)
 
 
 @receiver(post_save, sender=User)
