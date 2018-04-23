@@ -1,11 +1,15 @@
+from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 from cloudinary.models import CloudinaryField
-# Create your models here.
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
 class Room(models.Model):
     # Fields
     id = models.AutoField(primary_key=True)
     room_number = models.IntegerField(help_text="Enter the room number")
-    room_type = models.ForeignKey('Type', on_delete=models.SET_NULL, null=True)
+    room_type = models.ForeignKey('Type', on_delete=models.CASCADE, null=True)
 
     ROOM_STATUS = (
         ('o', 'Occupied'),
@@ -17,6 +21,8 @@ class Room(models.Model):
 
     class Meta:
         ordering = ["room_number"]
+        verbose_name = "Room"
+        verbose_name_plural = "Rooms"
 
     def __str__(self):
         return str(self.room_number)
@@ -43,6 +49,8 @@ class Type(models.Model):
 
     class Meta:
         ordering = ["id"]
+        verbose_name = "Room Type"
+        verbose_name_plural = "Room Types"
 
     def __str__(self):
         return self.name
@@ -51,42 +59,51 @@ class Type(models.Model):
 class Images(models.Model):
     # Fields
     id = models.AutoField(primary_key=True)
-    room_type_id = models.ForeignKey('Type', on_delete=models.SET_NULL, null=True)
+    room_type_id = models.ForeignKey(Type, on_delete=models.CASCADE, null=True)
     image = CloudinaryField(blank=True, help_text="Add room image")
     description = models.CharField(max_length=100, help_text="Description of the image", blank=True)
 
     class Meta:
         ordering = ["id"]
+        verbose_name = "Image"
+        verbose_name_plural = "Images"
 
     def __str__(self):
         return str(self.id)
 
 
-class RestaurantUser(models.Model):
+class HotelUserProfile(models.Model):
     # fields
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50, help_text="Type name of the room", blank=True)
-    email = models.EmailField(help_text="Email address of user")
-    password = models.CharField(max_length=20, help_text="password of user", blank=True)
-
-    USER_TYPE = (
-        ('u', 'User'),
-        ('a', 'Admin'),
-    )
-
-    user_type = models.CharField(max_length=1, choices=USER_TYPE, help_text="User type", blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_pic = CloudinaryField(blank=True, help_text="Profile picture of user")
+    address = models.CharField(blank=True, help_text="Address of user", max_length=50)
+    date_of_birth = models.DateField(blank=True, help_text="Date of birth of user")
 
     class Meta:
-        ordering = ["user_type", "id"]
+        ordering = ["id"]
+        verbose_name = "User"
+        verbose_name_plural = "Users"
 
     def __str__(self):
-        return self.name
+        return self.user.first_name + " " + self.user.last_name
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        HotelUserProfile.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 
 class Registration(models.Model):
     # fields
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey('RestaurantUser', on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(HotelUserProfile, on_delete=models.CASCADE, null=True)
     occupants = models.IntegerField(help_text="number of people staying")
     check_in_date = models.DateTimeField(help_text="Date of check in")
     check_out_date = models.DateTimeField(help_text="Date of check out")
@@ -94,19 +111,23 @@ class Registration(models.Model):
 
     class Meta:
         ordering = ["id"]
+        verbose_name = "Registration"
+        verbose_name_plural = "Registrations"
 
     def __str__(self):
-        return self.user_id.name
+        return self.user.user.first_name + " " + self.user.user.last_name + "," + str(id)
 
 
 class RegistrationDetails(models.Model):
     # fields
     id = models.AutoField(primary_key=True)
-    registration_id = models.ForeignKey('Registration', on_delete=models.SET_NULL, null=True)
-    room_id = models.ForeignKey('Room', on_delete=models.SET_NULL, null=True)
+    registration_id = models.ForeignKey(Registration, on_delete=models.CASCADE, null=True)
+    room_id = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True)
 
     class Meta:
         ordering = ["id"]
+        verbose_name = "Registration Detail"
+        verbose_name_plural = "Registration Details"
 
     def __str__(self):
         return str(self.registration_id)
@@ -115,13 +136,15 @@ class RegistrationDetails(models.Model):
 class Review(models.Model):
     # fields
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey('RestaurantUser', on_delete=models.SET_NULL, null=True)
-    room_id = models.ForeignKey('Room', on_delete=models.SET_NULL, null=True)
+    user_id = models.ForeignKey(HotelUserProfile, on_delete=models.CASCADE, null=True)
+    room_id = models.ForeignKey(Room, on_delete=models.CASCADE, null=True)
     rating = models.IntegerField(help_text="Rating from 1 to 5")
     review = models.CharField(max_length=200, help_text="Review description", blank=True)
 
     class Meta:
         ordering = ["id"]
+        verbose_name = "Review"
+        verbose_name_plural = "Reviews"
 
     def __str__(self):
-        return self.user_id.name
+        return self.user_id.user.first_name + " " + self.user_id.user.last_name
