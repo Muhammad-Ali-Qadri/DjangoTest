@@ -78,7 +78,6 @@ class HotelUserProfile(models.Model):
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_pic = CloudinaryField(blank=True, help_text="Profile picture of user")
     address = models.CharField(blank=True, help_text="Address of user", max_length=50)
-    date_of_birth = models.DateField(blank=True, help_text="Date of birth of user")
 
     class Meta:
         ordering = ["id"]
