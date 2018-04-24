@@ -59,7 +59,7 @@ def my_login(request):
             login(request, user)
             index(request)
         else:
-            pass  # TODO: if user is not valid do something
+            return render(request, "web/login.html", {'error': 'Invalid Username or Password!'})
     else:
         return render(request, "web/login.html", {})
 
@@ -72,11 +72,12 @@ def signup(request):
         password = request.POST['password']
         username = request.POST['username']
 
-        firstname = name.split(' ')[0]
-        lastname = name.split(' ')[1]
+        name_arr = name.split(' ')[0]
+        firstname = name_arr[0]
 
         # if valid user
-        if username and password:
+        if len(name_arr) > 1:
+            lastname = name.split(' ')[1]
             user = User.objects.create_user(username=username, email=email,
                                             first_name=firstname, last_name=lastname)
             # if user is created
@@ -87,6 +88,8 @@ def signup(request):
                 login(request, user)
                 return index(request)
             else:
-                pass  #TODO: add if username pass not accepted
+                return render(request, "web/signup.html", {'error': 'Username already in use!'})
+        else:
+            return render(request, "web/signup.html", {'error': 'Enter full name!'})
     else:
         return render(request, "web/signup.html", {})
