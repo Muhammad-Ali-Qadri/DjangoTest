@@ -41,7 +41,8 @@ def contact(request):
 
 
 def logout(request):
-    return render(request, "web/contact.html", {})
+    logout(request)
+    return render(request, "web/index.html", {})
 
 
 def profile(request):
@@ -72,12 +73,12 @@ def signup(request):
         password = request.POST['password']
         username = request.POST['username']
 
-        name_arr = name.split(' ')[0]
+        name_arr = name.split(' ')
         firstname = name_arr[0]
 
         # if valid user
         if len(name_arr) > 1:
-            lastname = name.split(' ')[1]
+            lastname = name_arr[1]
             user = User.objects.create_user(username=username, email=email,
                                             first_name=firstname, last_name=lastname)
             # if user is created
