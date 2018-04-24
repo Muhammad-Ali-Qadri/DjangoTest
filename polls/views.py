@@ -58,7 +58,7 @@ def my_login(request):
 
         if user is not None:
             login(request, user)
-            index(request)
+            return index(request)
         else:
             return render(request, "web/login.html", {'error': 'Invalid Username or Password!'})
     else:
