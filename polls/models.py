@@ -76,7 +76,8 @@ class Profile(models.Model):
     # fields
     id = models.AutoField(primary_key=True)
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_pic = CloudinaryField(blank=True, help_text="Profile picture of user")
+    profile_pic = CloudinaryField(blank=True, help_text="Profile picture of user",
+                                  default="http://res.cloudinary.com/dfl4tcmei/image/upload/v1524552656/empty_profile.png")
     address = models.CharField(blank=True, help_text="Address of user", max_length=50)
 
     class Meta:
