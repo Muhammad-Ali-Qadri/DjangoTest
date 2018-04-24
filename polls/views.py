@@ -64,10 +64,11 @@ def signup(request):
 
         # if valid user
         if username and password:
-            user, created = User.objects.create_user(username=username, email=email,
-                                                     first_name=firstname, last_name=lastname)
+            user, created = User.objects.create_user(username=username, email=email)
             # if user is created
             if created:
+                user.first_name = firstname
+                user.last_name = lastname
                 user.set_password(password)
                 user.save()
                 user = authenticate(username=username, password=password)
