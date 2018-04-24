@@ -1,4 +1,4 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import *
@@ -40,7 +40,7 @@ def contact(request):
     return render(request, "web/contact.html", {})
 
 
-def logout(request):
+def my_logout(request):
     logout(request)
     return render(request, "web/index.html", {})
 
