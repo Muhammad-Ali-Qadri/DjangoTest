@@ -89,6 +89,7 @@ class HotelUserProfile(models.Model):
         return self.user_id.first_name + " " + self.user_id.last_name
 
 
+# TODO: apply check so its only created for non-admin users
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -97,7 +98,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    instance.hoteluserprofile.save()
+    instance.hotel_user_profile.save()
 
 
 class Registration(models.Model):
