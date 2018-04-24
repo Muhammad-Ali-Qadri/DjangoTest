@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load cloudinary %}
 
 <!DOCTYPE html>
 <html>
@@ -31,8 +32,9 @@
 					 <li id="restaurant_t"><a class="scroll" href="{% url 'restaurant' %}">RESTAURANT</a></li>
 					 <li id="contact_t"><a class="scroll" href="{% url 'contact' %}">CONTACT US</a></li>
                     {% if request.user.is_authenticated and not request.user.is_superuser %}
-                        <li id="profile_t"><a class="scroll"
-                                              href="{% url 'profile' %}">{{ request.user.username }}</a></li>
+                        <li id="profile_t"><a class="scroll" href="{% url 'profile' %}"> <img
+                                src="{% static 'images/3.jpg' %}" alt="" width="32"
+                                height="32"> {{ request.user.username }}</a></li>
                         <li id="logout_t"><a class="scroll" href="{% url 'logout' %}">LOGOUT</a></li>
                     {% else %}
                         <li id="login_t"><a class="scroll" href="{% url 'login' %}">LOGIN</a></li>
