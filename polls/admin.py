@@ -4,7 +4,7 @@ from django import forms
 # Register your models here.
 
 admin.site.register(Type)
-admin.site.register(HotelUserProfile)
+admin.site.register(Profile)
 admin.site.register(Images)
 admin.site.register(Registration)
 admin.site.register(RegistrationDetails)

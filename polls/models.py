@@ -72,7 +72,7 @@ class Images(models.Model):
         return str(self.id)
 
 
-class HotelUserProfile(models.Model):
+class Profile(models.Model):
     # fields
     id = models.AutoField(primary_key=True)
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -92,18 +92,18 @@ class HotelUserProfile(models.Model):
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        HotelUserProfile.objects.create(user_id=instance)
+        Profile.objects.create(user_id=instance)
 
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    instance.hotel_user_profile.save()
+    instance.profile.save()
 
 
 class Registration(models.Model):
     # fields
     id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(HotelUserProfile, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     occupants = models.IntegerField(help_text="number of people staying")
     check_in_date = models.DateTimeField(help_text="Date of check in")
     check_out_date = models.DateTimeField(help_text="Date of check out")
@@ -136,7 +136,7 @@ class RegistrationDetails(models.Model):
 class Review(models.Model):
     # fields
     id = models.AutoField(primary_key=True)
-    user_id = models.ForeignKey(HotelUserProfile, on_delete=models.CASCADE, null=True)
+    user_id = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     room_id = models.ForeignKey(Room, on_delete=models.CASCADE, null=True)
     rating = models.IntegerField(help_text="Rating from 1 to 5")
     review = models.CharField(max_length=200, help_text="Review description", blank=True)
