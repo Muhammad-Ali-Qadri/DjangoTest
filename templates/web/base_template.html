@@ -33,7 +33,7 @@
 					 <li id="contact_t"><a class="scroll" href="{% url 'contact' %}">CONTACT US</a></li>
                     {% if request.user.is_authenticated and not request.user.is_superuser %}
                         <li id="profile_t"><a class="scroll" href="{% url 'profile' %}"> <img
-                                src="{% static 'images/3.jpg' %}" alt="" width="48"
+                                src="" alt="{% static 'images/empty_profile.png' %}" width="48"
                                 height="48"> &nbsp &nbsp {{ request.user.username }}</a></li>
                         <li id="logout_t"><a class="scroll" href="{% url 'logout' %}">LOGOUT</a></li>
                     {% else %}
