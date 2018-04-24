@@ -4,7 +4,8 @@ from django.shortcuts import render
 from .forms import *
 from .models import *
 
-# Create your views here.
+
+# show images of hotel rooms and direct to index.html
 def index(request):
     if request.user.is_superuser:
         logout(request)
