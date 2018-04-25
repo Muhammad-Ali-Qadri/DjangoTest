@@ -7,9 +7,6 @@ from .models import *
 
 # show images of hotel rooms and direct to index.html
 def index(request):
-    if request.user.is_superuser:
-        logout(request)
-
     images = []
     types = Type.objects.all()
     for type in types:
@@ -20,23 +17,15 @@ def index(request):
 
 
 def facilities(request):
-    if request.user.is_superuser:
-        logout(request)
 
     return render(request, "web/facilities.html", {})
 
 
 def restaurant(request):
-    if request.user.is_superuser:
-        logout(request)
-
     return render(request, "web/restaurant.html", {})
 
 
 def contact(request):
-    if request.user.is_superuser:
-        logout(request)
-
     return render(request, "web/contact.html", {})
 
 
