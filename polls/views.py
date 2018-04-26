@@ -51,7 +51,7 @@ def my_login(request):
         if user is not None:
             login(request, user)
             if user.is_superuser:
-                return redirect('admin')
+                return redirect('/admin/')
             return redirect('/index/')
         else:
             return redirect('/login/')
