@@ -1,6 +1,7 @@
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import *
 from .models import *
 
@@ -29,11 +30,13 @@ def contact(request):
     return render(request, "web/contact.html", {})
 
 
+@login_required
 def my_logout(request):
     logout(request)
     return render(request, "web/index.html", {})
 
 
+@login_required
 def profile(request):
     return render(request, "web/contact.html", {})
 
@@ -47,9 +50,11 @@ def my_login(request):
 
         if user is not None:
             login(request, user)
-            return index(request)
+            if user.is_superuser:
+                return redirect('admin')
+            return redirect('index')
         else:
-            return render(request, "web/login.html", {'error': 'Invalid Username or Password!'})
+            return redirect('login')
     else:
         return render(request, "web/login.html", {})
 
@@ -76,10 +81,10 @@ def signup(request):
                 user.save()
                 user = authenticate(username=username, password=password)
                 login(request, user)
-                return index(request)
+                return redirect('index')
             else:
-                return render(request, "web/signup.html", {'error': 'Username already in use!'})
+                return redirect('signup')
         else:
-            return render(request, "web/signup.html", {'error': 'Enter full name!'})
+            return redirect('signup')
     else:
         return render(request, "web/signup.html", {})

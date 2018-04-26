@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', 'thefuturehotel.herokuapp.com', '127.0.0.1']
 
+LOGIN_URL = '/login/'
 
 # Application definition
 
