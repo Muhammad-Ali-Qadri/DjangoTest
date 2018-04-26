@@ -52,7 +52,7 @@ def my_login(request):
             login(request, user)
             if user.is_superuser:
                 return redirect('/admin/')
-            return redirect('')
+            return redirect('index/')
         else:
             return redirect('/login/')
     else:
@@ -81,7 +81,7 @@ def signup(request):
                 user.save()
                 user = authenticate(username=username, password=password)
                 login(request, user)
-                return redirect('')
+                return redirect('index/')
             else:
                 return redirect('/signup/')
         else:
