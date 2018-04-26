@@ -51,10 +51,10 @@ def my_login(request):
         if user is not None:
             login(request, user)
             if user.is_superuser:
-                return redirect('/admin/')
-            return redirect('index/')
+                return redirect("admin")
+            return redirect("index")
         else:
-            return redirect('/login/')
+            return redirect('login')
     else:
         return render(request, "web/login.html", {})
 
@@ -81,10 +81,10 @@ def signup(request):
                 user.save()
                 user = authenticate(username=username, password=password)
                 login(request, user)
-                return redirect('index/')
+                return redirect("index")
             else:
-                return redirect('/signup/')
+                return redirect("signup")
         else:
-            return redirect('/signup/')
+            return redirect("signup")
     else:
         return render(request, "web/signup.html", {})
