@@ -54,7 +54,7 @@ def my_login(request):
                 return redirect("admin")
             return redirect("index")
         else:
-            return redirect("login")
+            return redirect("", {'error', "Invalid Username or password!"})
     else:
         return render(request, "web/login.html", {})
 
@@ -83,8 +83,8 @@ def signup(request):
                 login(request, user)
                 return redirect("index")
             else:
-                return redirect("signup")
+                return redirect("", {'error', "Username already exists"})
         else:
-            return redirect("signup")
+            return redirect("", {'error', "invalid name"})
     else:
         return render(request, "web/signup.html", {})
