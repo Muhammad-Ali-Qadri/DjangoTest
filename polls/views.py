@@ -42,7 +42,7 @@ def profile(request):
 
 
 # Login for the user
-def my_login(request):
+def my_login(request, error):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -56,11 +56,11 @@ def my_login(request):
         else:
             return redirect("login", {'error', "Invalid Username or password!"})
     else:
-        return render(request, "web/login.html", {})
+        return render(request, "web/login.html", error)
 
 
 # signup for the user
-def signup(request):
+def signup(request, error):
     if request.method == 'POST':
         name = request.POST['name']
         email = request.POST['email']
@@ -87,4 +87,4 @@ def signup(request):
         else:
             return redirect("signup", {'error', "invalid name"})
     else:
-        return render(request, "web/signup.html", {})
+        return render(request, "web/signup.html", error)
