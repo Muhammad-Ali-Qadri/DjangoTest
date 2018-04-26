@@ -49,7 +49,7 @@
                             <h5>Arrival</h5>
                             <div class="book_date">
                                 <form>
-                                    <input class="date" id="datepicker" type="text" value="2/08/2013"
+                                    <input class="date" id="datepicker" type="text" value="2/03/2018"
                                            onfocus="this.value = '';"
                                            onblur="if (this.value == '') {this.value = '2/03/2018';}">
                                 </form>
@@ -59,7 +59,7 @@
                             <h5>Depature</h5>
                             <div class="book_date">
                                 <form>
-                                    <input class="date" id="datepicker1" type="text" value="22/08/2013"
+                                    <input class="date" id="datepicker1" type="text" value="22/03/2018"
                                            onfocus="this.value = '';"
                                            onblur="if (this.value == '') {this.value = '22/03/2018';}">
                                 </form>
@@ -79,7 +79,7 @@
                         </li>
                         <li class="span1_of_3">
                             <div class="date_btn">
-                                <form>
+                                <form method="post">
                                     <input type="submit" value="View Prices"/>
                                 </form>
                             </div>
@@ -149,7 +149,6 @@
             <div class="room-grids">
                 {% for room in rooms %}
                 <div class="col-md-4 room-sec">
-                    {#                    <img src="{% static 'images/pic1.jpg' %}" alt=""/>#}
                     {% cloudinary room.1.image.public_id crop="fill" width="320" height="240" %}
                     <h4>{{ room.0.name }}</h4>
                     <p>{{ room.0.description }}</p>
@@ -176,9 +175,6 @@
                 </div>
 
                 {% endfor %}
-                {#                <div class="clearfix"></div>#}
-
-                {#                <div class="clearfix"></div>#}
             </div>
         </div>
     </div>
