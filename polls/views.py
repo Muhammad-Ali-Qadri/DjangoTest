@@ -38,7 +38,7 @@ def my_logout(request):
 
 @login_required
 def profile(request):
-    return render(request, "web/contact.html", {})
+    return render(request, "web/profile.html", {})
 
 
 # Login for the user
