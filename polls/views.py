@@ -54,7 +54,7 @@ def my_login(request):
                 return redirect("admin")
             return redirect("index")
         else:
-            return redirect('login')
+            return redirect("login")
     else:
         return render(request, "web/login.html", {})
 
