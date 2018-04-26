@@ -42,7 +42,7 @@ def profile(request):
 
 
 # Login for the user
-def my_login(request, error):
+def my_login(request, error=None):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -60,7 +60,7 @@ def my_login(request, error):
 
 
 # signup for the user
-def signup(request, error):
+def signup(request, error=None):
     if request.method == 'POST':
         name = request.POST['name']
         email = request.POST['email']
