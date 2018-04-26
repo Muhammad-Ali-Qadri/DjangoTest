@@ -42,7 +42,7 @@ def profile(request):
 
 
 # Login for the user
-def my_login(request, error={}):
+def my_login(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -54,13 +54,13 @@ def my_login(request, error={}):
                 return redirect("admin")
             return redirect("index")
         else:
-            return redirect("login", {'error', "Invalid Username or password!"})
+            return redirect("login")
     else:
-        return render(request, "web/login.html", error)
+        return render(request, "web/login.html")
 
 
 # signup for the user
-def signup(request, error={}):
+def signup(request):
     if request.method == 'POST':
         name = request.POST['name']
         email = request.POST['email']
@@ -83,8 +83,8 @@ def signup(request, error={}):
                 login(request, user)
                 return redirect("index")
             else:
-                return redirect("signup", {'error', "Username already exists"})
+                return redirect("signup")
         else:
-            return redirect("signup", {'error', "invalid name"})
+            return redirect("signup")
     else:
-        return render(request, "web/signup.html", error)
+        return render(request, "web/signup.html")
