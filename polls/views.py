@@ -36,12 +36,38 @@ def my_logout(request):
     return render(request, "web/index.html", {})
 
 
+# this view will only be accessed if the user is logged in
 @login_required
 def profile(request):
-    return render(request, "web/profile.html", {})
+    # Get changes in profile and save them in model
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        password = request.POST['password']
+        email = request.POST['email']
+        address = request.POST['address']
+        new_pic = request.FILES['newProfilePic']
+
+        if first_name is not None:
+            request.user.first_name = first_name
+        if last_name is not None:
+            request.user.last_name = last_name
+        if password is not None:
+            request.user.set_password(password)
+        if email is not None:
+            request.user.email = email
+        if new_pic is not None:
+            request.user.profile.profile_pic = new_pic
+        if address is not None:
+            request.user.profile.address = address
+
+        request.user.save()
+        return redirect('profile')
+    else:
+        return render(request, "web/profile.html", {})
 
 
-# Login for the user
+# Login for the user. Authenticate user and if valid, redirect it to main page
 def my_login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -66,7 +92,7 @@ def signup(request):
         email = request.POST['email']
         password = request.POST['password']
         username = request.POST['username']
-
+        profile_pic = request.FILES['profile_pic']
         name_arr = name.split(' ')
         firstname = name_arr[0]
 
@@ -75,9 +101,12 @@ def signup(request):
             lastname = name_arr[1]
             user = User.objects.create_user(username=username, email=email,
                                             first_name=firstname, last_name=lastname)
-            # if user is created
+            # if user is created save it in database
             if user is not None:
                 user.set_password(password)
+
+                if profile_pic is not None:
+                    user.profile.profile_pic = profile_pic
                 user.save()
                 user = authenticate(username=username, password=password)
                 login(request, user)

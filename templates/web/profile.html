@@ -6,7 +6,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <div class="media ml-5 my-5">
-        {% cloudinary request.user.profile.profile_pic.public_id crop="fill" width="64" height="64" class="rounded mx-auto d-block" %}
+        {% cloudinary request.user.profile.profile_pic.public_id crop="fill" width="96" height="96" class="rounded mx-auto d-block" %}
         <div class="media-body ml-3">
             <h5 class="mt-0">{{ request.user.first_name }} &nbsp {{ request.user.last_name }}</h5>
         </div>
@@ -22,9 +22,9 @@
                aria-controls="nav-contact" aria-selected="false">Bookings</a>
         </div>
     </nav>
-    <div class="tab-content ml-5" id="nav-tabContent" style="width: 50%; height: 500px">
+    <div class="tab-content ml-5" id="nav-tabContent" style="width: 50%; height: 750px">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <form action="{% url 'profile' %}" method="post">
+            <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="custom-file my-3">
                     <script>
@@ -43,21 +43,21 @@
                         }
                     </script>
                     <input type="file" class="custom-file-input" id="customFile"
-                           accept="image/gif, image/jpeg, image/png" onchange="readURL(this)">
+                           accept="image/*" onchange="readURL(this)" name="newProfilePic">
                     <label class="custom-file-label" for="customFile">Choose file</label>
                 </div>
 
                 <div class="form-group col" id="new_pic">
-                    <img src="" alt="" crop="fill" id="new_image">
+                    <img src="" alt="" id="new_image">
                 </div>
                 <div class="row my-3">
                     <div class="col">
                         <input type="text" class="form-control" placeholder="First name"
-                               value="{{ request.user.first_name }}" required>
+                               value="{{ request.user.first_name }}" name="first_name" required>
                     </div>
                     <div class="col">
                         <input type="text" class="form-control" placeholder="Last name"
-                               value="{{ request.user.last_name }}" required>
+                               value="{{ request.user.last_name }}" name="last_name" required>
                     </div>
                 </div>
                 <div class="form-row my-3">
@@ -65,25 +65,26 @@
                         <label for="inputEmail4">Email</label>
                         <input type="email" class="form-control" id="inputEmail4"
                                placeholder="{{ request.user.profile.email }}"
-                               value="{{ request.user.profile.email }}" readonly>
+                               value="{{ request.user.profile.email }}" name="email" required>
                     </div>
                 </div>
                 <div class="row my-3">
                     <div class="col">
                         <input type="password" class="form-control" placeholder="Password"
-                               value="">
+                               value="" name="password" id="password">
                         <small id="passwordHelpInline" class="text-muted">
                             Must be 5-20 characters long.
                         </small>
                     </div>
                     <div class="col">
                         <input type="password" class="form-control" placeholder="Confirm Password"
-                               value="">
+                               value="" name="confirm_password" id="confirm_password">
                     </div>
                 </div>
                 <div class="form-group my-3">
                     <label for="inputAddress">Address</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
+                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" value=""
+                           name="address">
                 </div>
 
                 <button type="submit" class="btn btn-primary">SAVE</button>
