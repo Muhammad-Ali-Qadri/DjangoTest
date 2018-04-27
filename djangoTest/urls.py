@@ -24,7 +24,7 @@ urlpatterns = [
     url('^index/', polls.views.index, "index"),
     url('^facilities/', polls.views.facilities, name="facilities"),
     url('^restaurant/', polls.views.restaurant, name="restaurant"),
-    url('^contact/', polls.views.contact, name="contact"),
+    url('^review/', polls.views.review, name="review"),
     url('^login/', polls.views.my_login, name="login"),
     url('^signup/', polls.views.signup, name="signup"),
     url('^profile/', polls.views.profile, name="profile"),

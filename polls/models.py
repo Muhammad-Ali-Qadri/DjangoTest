@@ -1,6 +1,7 @@
+import django.utils.timezone
+from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User, AbstractUser
 from django.db import models
-from cloudinary.models import CloudinaryField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
@@ -138,9 +139,9 @@ class Review(models.Model):
     # fields
     id = models.AutoField(primary_key=True)
     user_id = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
-    room_id = models.ForeignKey(Room, on_delete=models.CASCADE, null=True)
     rating = models.IntegerField(help_text="Rating from 1 to 5")
     review = models.CharField(max_length=200, help_text="Review description", blank=True)
+    review_date = models.DateField(default=django.utils.timezone.now, blank=True)
 
     class Meta:
         ordering = ["id"]

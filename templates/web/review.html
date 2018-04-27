@@ -37,7 +37,7 @@
                 <div class="contact_right">
                     <div class="contact-form">
                         <h3 class="style">Add Review</h3>
-                        <form method="post" action="index.html">
+                        <form method="post" action="{% url 'review' %}">
                             <div>
                                 <span><label>NAME</label></span>
                                 <span><input name="username" type="text" class="textbox"
@@ -49,15 +49,21 @@
                                              readonly></span>
                             </div>
                             <div>
-                                <span><label>MOBILE</label></span>
-                                <span><input name="userPhone" type="text" class="textbox"></span>
+                                <span><label>Rating</label></span>
+                                <span><select name="rating" required>
+  <option value="volvo">1</option>
+  <option value="saab">2</option>
+  <option value="fiat">3</option>
+  <option value="audi">4</option>
+  <option value="audi">5</option>
+</select></span>
                             </div>
                             <div>
-                                <span><label>SUBJECT</label></span>
-                                <span><textarea name="userMsg"> </textarea></span>
+                                <span><label>REVIEW</label></span>
+                                <span><textarea name="review_text" required minlength="10"> </textarea></span>
                             </div>
                             <div>
-                                <input type="submit" value="submit us">
+                                <input type="submit" value="Submit Us">
                             </div>
                         </form>
                     </div>

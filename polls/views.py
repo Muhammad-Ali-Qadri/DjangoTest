@@ -25,8 +25,18 @@ def restaurant(request):
     return render(request, "web/restaurant.html", {})
 
 
-def contact(request):
-    return render(request, "web/contact.html", {})
+# registered users can review the hotel
+@login_required
+def review(request):
+    # get details entered for review and save them (review is associated with each user)
+    if request.method == 'POST':
+        rating = request.POST['rating']
+        review = request.POST['review_text']
+        rev = Review(user_id=request.user, rating=rating, review=review)
+        rev.save()
+        return redirect('index')
+    else:
+        return render(request, "web/review.html", {})
 
 
 @login_required
@@ -63,7 +73,8 @@ def profile(request):
         request.user.save()
         return redirect('profile')
     else:
-        return render(request, "web/profile.html", {})
+        # get the persons previous reviews and bookings to show on template (view)
+        return render(request, "web/profile.html", {'reviews': request.user.profile.review_set.all()})
 
 
 # Login for the user. Authenticate user and if valid, redirect it to main page
@@ -76,10 +87,10 @@ def my_login(request):
         if user is not None:
             login(request, user)
             if user.is_superuser:
-                return redirect("Admin")
-            return redirect("index")
+                return redirect('Admin')
+            return redirect('index')
         else:
-            return redirect("login")
+            return redirect('login')
     else:
         return render(request, "web/login.html")
 
@@ -109,10 +120,10 @@ def signup(request):
                 user.save()
                 user = authenticate(username=username, password=password)
                 login(request, user)
-                return redirect("index")
+                return redirect('index')
             else:
-                return redirect("signup")
+                return redirect('signup')
         else:
-            return redirect("signup")
+            return redirect('signup')
     else:
         return render(request, "web/signup.html")

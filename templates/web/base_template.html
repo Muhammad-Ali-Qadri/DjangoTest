@@ -30,7 +30,7 @@
 					 <li id="index_t"><a href="{% url 'index' %}">START</a></li>
 					 <li id="facilities_t"><a class="scroll" href="{% url 'facilities' %}">FACILITIES</a></li>
 					 <li id="restaurant_t"><a class="scroll" href="{% url 'restaurant' %}">RESTAURANT</a></li>
-					 <li id="contact_t"><a class="scroll" href="{% url 'contact' %}">CONTACT US</a></li>
+                    <li id="contact_t"><a class="scroll" href="{% url 'review' %}">CONTACT US</a></li>
                     {% if request.user.is_authenticated and not request.user.is_superuser %}
                         <li id="profile_t"><a class="scroll"
                                               href="{% url 'profile' %}"> {% cloudinary request.user.profile.profile_pic.public_id crop="fill" width="48" height="48" %}
