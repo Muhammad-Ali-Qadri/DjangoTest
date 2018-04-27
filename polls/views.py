@@ -45,13 +45,13 @@ def profile(request):
         password = request.POST['password']
         email = request.POST['email']
         address = request.POST['address']
-        new_pic = request.FILES["newProfilePic"]
+        new_pic = request.FILES['newProfilePic']
 
         if first_name is not None:
             request.user.first_name = first_name
         if last_name is not None:
             request.user.last_name = last_name
-        if password is not None or password is "":
+        if password is not None or password != "":
             request.user.set_password(password)
         if email is not None:
             request.user.email = email

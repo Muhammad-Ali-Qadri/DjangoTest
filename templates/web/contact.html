@@ -1,6 +1,5 @@
 {% extends 'web/base_template.html' %}
 {% load staticfiles %}
-
 {% block content %}
 
     <script>
@@ -37,15 +36,17 @@
                 </div>
                 <div class="contact_right">
                     <div class="contact-form">
-                        <h3 class="style">Contact Us</h3>
+                        <h3 class="style">Add Review</h3>
                         <form method="post" action="index.html">
                             <div>
                                 <span><label>NAME</label></span>
-                                <span><input name="userName" type="text" class="textbox"></span>
+                                <span><input name="username" type="text" class="textbox"
+                                             value="{{ request.user.username }}" readonly></span>
                             </div>
                             <div>
                                 <span><label>E-MAIL</label></span>
-                                <span><input name="userEmail" type="text" class="textbox"></span>
+                                <span><input name="email" type="text" class="textbox" value="{{ request.user.email }}"
+                                             readonly></span>
                             </div>
                             <div>
                                 <span><label>MOBILE</label></span>
