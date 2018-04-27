@@ -24,8 +24,7 @@
     </nav>
     <div class="tab-content ml-5" id="nav-tabContent" style="width: 50%; height: 750px">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data"
-                  onsubmit="return validateForm()" name="profile_form">
+            <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="custom-file my-3">
                     <script>
@@ -87,17 +86,6 @@
                     <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" value=""
                            name="address">
                 </div>
-                <script>
-                    var pass = document.getElementById("confirm_password");
-                    pass.addEventListener("input", function (event) {
-                        var confirm = document.getElementById("password").value;
-                        if (pass !== "" && pass !== confirm) {
-                            pass.setCustomValidity("Passwords dont match");
-                        } else {
-                            pass.setCustomValidity("");
-                        }
-                    });
-                </script>
                 <button type="submit" class="btn btn-primary">SAVE</button>
             </form>
         </div>
