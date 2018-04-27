@@ -45,7 +45,7 @@ def profile(request):
         password = request.POST['password']
         email = request.POST['email']
         address = request.POST['address']
-        new_pic = request.FILES['newProfilePic']
+        new_pic = request.FILES.get('newProfilePic')
 
         if first_name is not None:
             request.user.first_name = first_name
@@ -91,7 +91,7 @@ def signup(request):
         email = request.POST['email']
         password = request.POST['password']
         username = request.POST['username']
-        profile_pic = request.FILES['profile_pic']
+        profile_pic = request.FILES.get('profile_pic')
         name_arr = name.split(' ')
         firstname = name_arr[0]
 
