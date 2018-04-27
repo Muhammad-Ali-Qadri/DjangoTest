@@ -7,7 +7,6 @@
 
     <div class="media ml-5 my-5">
         {% cloudinary request.user.profile.profile_pic.public_id crop="fill" width="64" height="64" class="rounded mx-auto d-block" %}
-        <img class="rounded mx-auto d-block" src="" alt="sdasd">
         <div class="media-body ml-3">
             <h5 class="mt-0">{{ request.user.first_name }} &nbsp {{ request.user.last_name }}</h5>
         </div>
@@ -25,10 +24,32 @@
     </nav>
     <div class="tab-content ml-5" id="nav-tabContent" style="width: 50%; height: 500px">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <form method="post">
-                <div class="custom-file my-4">
-                    <input type="file" class="custom-file-input" id="customFile">
+            <form action="{% url 'profile' %}" method="post">
+                {% csrf_token %}
+                <div class="custom-file my-3">
+                    <script>
+                        function readURL(input) {
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+
+                                reader.onload = function (e) {
+                                    $('#new_image')
+                                        .attr('src', e.target.result)
+                                        .width(64)
+                                        .height(64);
+                                };
+
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+                    </script>
+                    <input type="file" class="custom-file-input" id="customFile"
+                           accept="image/gif, image/jpeg, image/png" onchange="readURL(this)">
                     <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+
+                <div class="form-group col" id="new_pic">
+                    <img src="" alt="" crop="fill" id="new_image">
                 </div>
                 <div class="row my-3">
                     <div class="col">
@@ -43,18 +64,25 @@
                 <div class="form-row my-3">
                     <div class="form-group col">
                         <label for="inputEmail4">Email</label>
-                        <input type="email" class="form-control" id="inputEmail4" placeholder="Email"
+                        <input type="email" class="form-control" id="inputEmail4"
+                               placeholder="{{ request.user.profile.email }}"
                                value="{{ request.user.profile.email }}" readonly>
                     </div>
-                    <div class="form-group col">
-                        <label for="inputPassword4">Password</label>
-                        <input type="password" class="form-control" id="inputPassword4" placeholder="Password" required>
+                </div>
+                <div class="row my-3">
+                    <div class="col">
+                        <input type="password" class="form-control" placeholder="Password"
+                               value="">
                         <small id="passwordHelpInline" class="text-muted">
                             Must be 5-20 characters long.
                         </small>
                     </div>
+                    <div class="col">
+                        <input type="password" class="form-control" placeholder="Confirm Password"
+                               value="">
+                    </div>
                 </div>
-                <div class="form-group ">
+                <div class="form-group my-3">
                     <label for="inputAddress">Address</label>
                     <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
                 </div>
@@ -83,5 +111,15 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 
 {% endblock %}
