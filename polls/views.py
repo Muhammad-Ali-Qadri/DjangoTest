@@ -1,8 +1,7 @@
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .forms import *
+
 from .models import *
 
 
@@ -52,7 +51,7 @@ def profile(request):
             request.user.first_name = first_name
         if last_name is not None:
             request.user.last_name = last_name
-        if password is not None:
+        if password is not None or password is "":
             request.user.set_password(password)
         if email is not None:
             request.user.email = email
