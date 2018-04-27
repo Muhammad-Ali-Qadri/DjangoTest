@@ -38,6 +38,7 @@
                     <div class="contact-form">
                         <h3 class="style">Add Review</h3>
                         <form method="post" action="{% url 'review' %}">
+                            {% csrf_token %}
                             <div>
                                 <span><label>NAME</label></span>
                                 <span><input name="username" type="text" class="textbox"
@@ -49,14 +50,15 @@
                                              readonly></span>
                             </div>
                             <div>
-                                <span><label>Rating</label></span>
-                                <span><select name="rating" required>
-  <option value="volvo">1</option>
-  <option value="saab">2</option>
-  <option value="fiat">3</option>
-  <option value="audi">4</option>
-  <option value="audi">5</option>
-</select></span>
+                                <span><label for="ratings">Rating</label></span>
+                                <span><select name="rating" required id="ratings">
+                                          <option value="1">1</option>
+                                          <option value="2">2</option>
+                                          <option value="3">3</option>
+                                          <option value="4">4</option>
+                                          <option value="5">5</option>
+                                        </select>
+                                </span>
                             </div>
                             <div>
                                 <span><label>REVIEW</label></span>
