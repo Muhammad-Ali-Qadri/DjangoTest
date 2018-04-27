@@ -51,7 +51,7 @@ def profile(request):
             request.user.first_name = first_name
         if last_name is not None:
             request.user.last_name = last_name
-        if password is not None or password != "":
+        if password is not None and password != "":
             request.user.set_password(password)
         if email is not None:
             request.user.email = email
@@ -76,7 +76,7 @@ def my_login(request):
         if user is not None:
             login(request, user)
             if user.is_superuser:
-                return redirect("admin")
+                return redirect("Admin")
             return redirect("index")
         else:
             return redirect("login")

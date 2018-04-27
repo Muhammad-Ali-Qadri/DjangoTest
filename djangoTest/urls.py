@@ -14,14 +14,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path, include
 
 import polls.views
 
 admin.autodiscover()
 
 urlpatterns = [
-    url('^admin/', admin.site.urls, name="admin"),
+    url('^admin/', admin.site.urls, name="Admin"),
     url('^index/', polls.views.index, "index"),
     url('^facilities/', polls.views.facilities, name="facilities"),
     url('^restaurant/', polls.views.restaurant, name="restaurant"),
