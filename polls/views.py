@@ -32,13 +32,14 @@ def review(request):
     if request.method == 'POST':
         rating = request.POST['rating']
         review = request.POST['review_text']
-        rev = Review(user_id=request.user, rating=rating, review=review)
+        rev = Review(user_id=request.user.profile, rating=rating, review=review)
         rev.save()
         return redirect('index')
     else:
         return render(request, "web/review.html", {})
 
 
+# logout from hotel
 @login_required
 def my_logout(request):
     logout(request)
