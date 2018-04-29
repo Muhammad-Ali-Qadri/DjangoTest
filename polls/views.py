@@ -9,19 +9,13 @@ from .models import *
 
 # show images of hotel rooms and direct to index.html
 def index(request):
-    if request.method == 'POST':
-        check_in = request.POST['check_in']
-        check_out = request.POST['check_out']
-        return redirect('booking', check_in=check_in, check_out=check_out)
+    images = []
+    types = Type.objects.all()
+    for type in types:
+        images.append(type.images_set.first())
 
-    else:
-        images = []
-        types = Type.objects.all()
-        for type in types:
-            images.append(type.images_set.first())
-
-        rooms = zip(types, images)
-        return render(request, "web/index.html", {'rooms': rooms})
+    rooms = zip(types, images)
+    return render(request, "web/index.html", {'rooms': rooms})
 
 
 def facilities(request):
