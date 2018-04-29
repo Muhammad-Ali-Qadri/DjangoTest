@@ -123,7 +123,7 @@ class Registration(models.Model):
 class RegistrationDetails(models.Model):
     # fields
     id = models.AutoField(primary_key=True)
-    registration_id = models.ForeignKey(Registration, on_delete=models.CASCADE, null=True)
+    registration_id = models.ForeignKey(Registration, on_delete=models.CASCADE, related_name='details', null=True)
     room_id = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True)
 
     class Meta:
@@ -144,7 +144,7 @@ class Review(models.Model):
     review_date = models.DateField(default=django.utils.timezone.now, blank=True)
 
     class Meta:
-        ordering = ["id"]
+        ordering = ["rating", "review_date"]
         verbose_name = "Review"
         verbose_name_plural = "Reviews"
 

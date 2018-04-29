@@ -1,3 +1,5 @@
+from collections import Counter
+
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -7,13 +9,19 @@ from .models import *
 
 # show images of hotel rooms and direct to index.html
 def index(request):
-    images = []
-    types = Type.objects.all()
-    for type in types:
-        images.append(type.images_set.first())
+    if request.method == 'POST':
+        check_in = request.POST['check_in']
+        check_out = request.POST['check_out']
+        return redirect('booking', check_in=check_in, check_out=check_out)
 
-    rooms = zip(types, images)
-    return render(request, "web/index.html", {'rooms': rooms})
+    else:
+        images = []
+        types = Type.objects.all()
+        for type in types:
+            images.append(type.images_set.first())
+
+        rooms = zip(types, images)
+        return render(request, "web/index.html", {'rooms': rooms})
 
 
 def facilities(request):
@@ -128,3 +136,43 @@ def signup(request):
             return redirect('signup')
     else:
         return render(request, "web/signup.html")
+
+
+@login_required
+def booking(request):
+    if request.method == 'GET':
+        check_in = request.GET['check_in']
+        check_out = request.GET['check_out']
+
+        # all these rooms cannot be shown
+        # those regs that start before checkin and end within
+        reg_lte = Registration.objects.filter(check_in_date__lte=check_in, check_out_date__range=(check_in, check_out))
+
+        # those regs that start between checkin and checkout, and end after checkout
+        reg_gte = Registration.objects.filter(check_in_date__range=(check_in, check_out), check_out_date__gte=check_out)
+
+        # those regs that start and end within checkin and checkout
+        reg_in = Registration.objects.filter(check_in_date__gte=check_in, check_out_date__lte=check_out)
+
+        # those regs that start and end outside checkin and checkout
+        reg_out = Registration.objects.filter(check_in_date__lte=check_in, check_out_date__gte=check_out)
+
+        unavailable_room_bookings = list(set(reg_gte + reg_lte + reg_in + reg_out))
+
+        # get the unavailable rooms
+        unavailable_rooms = []
+        for reg in unavailable_room_bookings:
+            for detail in reg.details.all():
+                unavailable_rooms.append(detail.room_id)
+
+        # get available rooms
+        available_rooms = list(set(Room.objects().exclude(room_id=unavailable_rooms)))
+
+        # get type and number of rooms associated with that type, they will be available to user
+        available_types = []
+        for room in available_rooms:
+            available_types.append(room.room_type)
+
+        available_types = Counter(available_types)
+
+        return render(request, "web/booking.html", {'available': sorted(available_types.items())})

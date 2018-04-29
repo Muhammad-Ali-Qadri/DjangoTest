@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <div class="my-3 ml-3">
     <div class="media ml-5 my-5">
         {% cloudinary request.user.profile.profile_pic.public_id crop="fill" width="96" height="96" class="rounded mx-auto d-block" %}
         <div class="media-body ml-3">
@@ -89,12 +90,17 @@
                 <button type="submit" class="btn btn-primary">SAVE</button>
             </form>
         </div>
-        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
+             style="overflow: scroll">
             {% for review in reviews %}
                 <div class="card my-1" style="width: 100%;">
                 <div class="card-body">
-                    <h5 class="card-title">{{ review.review_date }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Rating: {{ review.rating }} </h6>
+                    <h5 class="card-title"></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Rating:
+                        {% for i in "x"|ljust:review.rating %}
+                            <span class="glyphicons glyphicons-star"></span>
+                        {% endfor %}
+                    </h6>
                     <p class="card-text">{{ review.review }}</p>
                 </div>
             </div>
@@ -110,6 +116,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
