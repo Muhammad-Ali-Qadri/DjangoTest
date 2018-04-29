@@ -6,13 +6,12 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <script>
-        var checkBoxes = $('body #select_type');
-        checkBoxes.change(function () {
-            $('#book_btn').prop('disabled', checkBoxes.filter(':checked').length < 1);
-        });
-        $('body #select_type').change();
+        var t = new Date();
+        t.setDate(t.getDate() + 1);
+        var today = new Date(t).toISOString().split('T')[0];
+        document.getElementById("inputcheckin").setAttribute('min', today);
+        document.getElementById("inputcheckout").setAttribute('min', today);
     </script>
-
     <div class="my-5 ml-5">
         <form method="post" action="{% url 'check' %}">
             {% csrf_token %}
@@ -20,20 +19,23 @@
                 <div class="form-group col-md-3">
                     <label for="inputcheckin">Check in Date</label>
                     {% if check_in is not None %}
-                        <input type="date" class="form-control" id="inputcheckin" value="{{ check_in }}" name="check_in"
+                        <input type="date" class="form-control" id="inputcheckin" placeholder="{{ check_in }}"
+                               name="check_in"
                                required>
                     {% else %}
-                        <input type="date" class="form-control" id="inputcheckin" value="5/05/2018" name="check_in"
+                        <input type="date" class="form-control" id="inputcheckin" placeholder="5/05/2018"
+                               name="check_in"
                                required>
                     {% endif %}
                 </div>
                 <div class="form-group col-md-3">
                     <label for="inputcheckout">Check out Date</label>
                     {% if check_out is not None %}
-                        <input type="date" class="form-control" id="inputcheckout" value="{{ check_out }}"
+                        <input type="date" class="form-control" id="inputcheckout" placeholder="{{ check_out }}"
                                name="check_out" required>
                     {% else %}
-                        <input type="date" class="form-control" id="inputcheckout" value="5/05/2018" name="check_out"
+                        <input type="date" class="form-control" id="inputcheckout" placeholder="5/05/2018"
+                               name="check_out"
                                required>
                     {% endif %}
                 </div>
@@ -46,29 +48,20 @@
 
     </div>
     {% if available is not None %}
-        <form method="post" action="{% url 'booking' %}">
-            {% csrf_token %}
-            <div class="form-row ml-5">
-                <div class="form-group col-md-3">
-                    <label for="total">Total Amount</label>
-                    <input type="text" class="form-control" id="total" placeholder="0.0Rs" readonly>
-                </div>
-                <div class="form-group col-md-5 my-4">
-                    <button type="submit" class="btn btn-primary" id="book_btn">BOOK</button>
-                </div>
-            </div>
 
-            <div class="my-3 ml-5">
+        <div class="my-3 ml-1">
             <div class="row">
 
                 {% for zipped in available %}
+                    <form method="post" action="{% url 'booking' %}">
+                        {% csrf_token %}
 
                     <div class="col-sm-auto">
                         <div class="card" style="width: 18rem;">
-                            <label id="type_id" hidden>{{ zipped.0.id }}</label>
+                            <input type="text" id="type_id" hidden>{{ zipped.0.id }}</input>
                             <label id="max_quantity" hidden>{{ zipped.1 }}</label>
                             <label id="type_price" hidden>{{ zipped.0.price }}</label>
-                            {% cloudinary zipped.2.image.public_id crop="fill" width="146" height="128" %}
+                            {% cloudinary zipped.2.image.public_id crop="fill" width="240" height="164" %}
                             <div class="card-body">
                                 <h5 class="card-title">{{ zipped.0.name }}</h5>
                                 <p class="card-text">{{ zipped.0.description }}</p>
@@ -111,26 +104,18 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="list-group-item">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="select_type"
-                                       name="select_type">
-                                <label class="form-check-label" for="select_type">
-                                    &nbsp &nbsp Select Room
-                                </label>
-                            </div>
-                        </li>
                         </ul>
 
                     </div>
+                        <div class="card-body">
+                            <button type="submit" class="btn btn-primary">BOOK</button>
+                        </div>
                     </div>
-
+                    </form>
                 {% endfor %}
         </div>
 
         </div>
-
-        </form>
 
 
     {% endif %}
