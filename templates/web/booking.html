@@ -9,8 +9,8 @@
         var t = new Date();
         t.setDate(t.getDate() + 1);
         var today = new Date(t).toISOString().split('T')[0];
-        document.getElementById("inputcheckin").setAttribute('min', today);
-        document.getElementById("inputcheckout").setAttribute('min', today);
+        document.getElementById("#inputcheckin").setAttribute('min', today);
+        document.getElementById("#inputcheckout").setAttribute('min', today);
     </script>
     <div class="my-5 ml-5">
         <form method="post" action="{% url 'check' %}">
@@ -24,8 +24,8 @@
                                name="check_in"
                                required>
                     {% else %}
-                        <input type="date" class="form-control" id="inputcheckin" placeholder="5/05/2018"
-                               value="5/05/2018"
+                        <input type="date" class="form-control" id="inputcheckin" placeholder="2018-05-1"
+                               value="2018-05-1"
                                name="check_in"
                                required>
                     {% endif %}
@@ -37,8 +37,8 @@
                                value="{{ check_out }}"
                                name="check_out" required>
                     {% else %}
-                        <input type="date" class="form-control" id="inputcheckout" placeholder="5/05/2018"
-                               value="5/05/2018"
+                        <input type="date" class="form-control" id="inputcheckout" placeholder="2018-05-1"
+                               value="2018-05-1"
                                name="check_out"
                                required>
                     {% endif %}
@@ -104,10 +104,8 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="">Qty</span>
                                 </div>
-                                <input type="text" class="form-control" name="quantity" value="1" required>
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">max : {{ zipped.1 }}	</span>
-                                </div>
+                                <input type="number" min="1" max="{{ zipped.1 }}" class="form-control" name="quantity"
+                                       value="1" required>
                             </div>
                         </li>
                         </ul>
