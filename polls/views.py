@@ -140,16 +140,18 @@ def check(request):
 
         # all these rooms cannot be shown
         # those regs that start before checkin and end within
-        reg_lte = Registration.objects.filter(check_in_date__lte=check_in, check_out_date__range=(check_in, check_out))
+        reg_lte = list(
+            Registration.objects.filter(check_in_date__lte=check_in, check_out_date__range=(check_in, check_out)))
 
         # those regs that start between checkin and checkout, and end after checkout
-        reg_gte = Registration.objects.filter(check_in_date__range=(check_in, check_out), check_out_date__gte=check_out)
+        reg_gte = list(
+            Registration.objects.filter(check_in_date__range=(check_in, check_out), check_out_date__gte=check_out))
 
         # those regs that start and end within checkin and checkout
-        reg_in = Registration.objects.filter(check_in_date__gte=check_in, check_out_date__lte=check_out)
+        reg_in = list(Registration.objects.filter(check_in_date__gte=check_in, check_out_date__lte=check_out))
 
         # those regs that start and end outside checkin and checkout
-        reg_out = Registration.objects.filter(check_in_date__lte=check_in, check_out_date__gte=check_out)
+        reg_out = list(Registration.objects.filter(check_in_date__lte=check_in, check_out_date__gte=check_out))
 
         unavailable_room_bookings = list(set(reg_gte + reg_lte + reg_in + reg_out))
 
