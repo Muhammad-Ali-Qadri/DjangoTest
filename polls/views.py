@@ -136,8 +136,8 @@ def signup(request):
 @login_required
 def check(request):
     if request.method == 'POST':
-        check_in = datetime.strptime(request.POST['check_in'], "%Y/%m/%d")
-        check_out = datetime.strptime(request.POST['check_out'], "%Y/%m/%d")
+        check_in = datetime.strptime(request.POST['check_in'], "%Y-%m-%d")
+        check_out = datetime.strptime(request.POST['check_out'], "%Y-%m-%d")
 
         # all these rooms cannot be shown
         # those regs that start before checkin and end within
