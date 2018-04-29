@@ -162,7 +162,7 @@ def check(request):
         unavailable_rooms = []
         for reg in unavailable_room_bookings:
             for detail in list(reg.details.all()):
-                unavailable_rooms.append(detail.room_id)
+                unavailable_rooms.append(detail.room_id.id)
 
         # get available rooms
         available_rooms = list(set(list(Room.objects.all().exclude(id__in=unavailable_rooms))))
