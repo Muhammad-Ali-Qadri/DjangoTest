@@ -136,9 +136,9 @@ def signup(request):
 @login_required
 def check(request):
     if request.method == 'POST':
-        check_in_date = datetime.strptime(request.POST['check_in'], "%Y-%m-%d")
+        check_in_date = request.POST['check_in']
         check_in = datetime.strptime(check_in_date, "%Y-%m-%d")
-        check_out_date = datetime.strptime(request.POST['check_out'], "%Y-%m-%d")
+        check_out_date = request.POST['check_out']
         check_out = datetime.strptime(check_out_date, "%Y-%m-%d")
 
         # all these rooms cannot be shown
