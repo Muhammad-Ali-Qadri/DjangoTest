@@ -75,26 +75,28 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <div class="items">
+                                        <ul>
                                         {% if zipped.0.has_air_conditioning %}
                                             <li><a href="#"><span class="img1"> </span></a></li>
                                         {% endif %}
-                                {% if zipped.0.has_dryer %}
-                                    <li><a href="#"><span class="img2"> </span></a></li>
-                                {% endif %}
-                                {% if zipped.0.has_room_service %}
-                                    <li><a href="#"><span class="img3"> </span></a></li>
-                                {% endif %}
-                                {% if zipped.0.has_electronic_safe %}
-                                    <li><a href="#"><span class="img4"> </span></a></li>
-                                {% endif %}
-                                {% if zipped.0.has_wifi %}
-                                    <li><a href="#"><span class="img5"> </span></a></li>
-                                {% endif %}
-                                {% if zipped.0.has_breakfast %}
-                                    <li><a href="#"><span class="img6"> </span></a></li>
-                                {% endif %}
-                        </div>
-                        </li>
+                                            {% if zipped.0.has_dryer %}
+                                                <li><a href="#"><span class="img2"> </span></a></li>
+                                            {% endif %}
+                                            {% if zipped.0.has_room_service %}
+                                                <li><a href="#"><span class="img3"> </span></a></li>
+                                            {% endif %}
+                                            {% if zipped.0.has_electronic_safe %}
+                                                <li><a href="#"><span class="img4"> </span></a></li>
+                                            {% endif %}
+                                            {% if zipped.0.has_wifi %}
+                                                <li><a href="#"><span class="img5"> </span></a></li>
+                                            {% endif %}
+                                            {% if zipped.0.has_breakfast %}
+                                                <li><a href="#"><span class="img6"> </span></a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </li>
                         <li class="list-group-item"> Rs.{{ zipped.0.price }} per night</li>
                         <li class="list-group-item"> Max {{ zipped.0.capacity }} persons</li>
                         <li class="list-group-item">
