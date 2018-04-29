@@ -58,7 +58,9 @@
 
                     <div class="col-sm-auto">
                         <div class="card" style="width: 18rem;">
-                            <input type="text" id="type_id" hidden>{{ zipped.0.id }}</input>
+                            <input type="text" id="check_in" name="check_in" hidden>{{ check_in }}</input>
+                            <input type="text" id="check_out" name="check_out" hidden>{{ check_out }}</input>
+                            <input type="text" id="type_id" name="type_id" hidden>{{ zipped.0.id }}</input>
                             <label id="max_quantity" hidden>{{ zipped.1 }}</label>
                             <label id="type_price" hidden>{{ zipped.0.price }}</label>
                             {% cloudinary zipped.2.image.public_id crop="fill" width="240" height="164" %}

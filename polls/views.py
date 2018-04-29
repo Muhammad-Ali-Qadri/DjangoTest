@@ -172,7 +172,7 @@ def check(request):
 
         available_types = Counter(available_types)
 
-        # get type, room count and first image into a single zipped list
+        # get type, room count and first image into a single zipped list and send to view
         ty = []
         count = []
         images = []
@@ -188,9 +188,31 @@ def check(request):
         return redirect('booking')
 
 
+# book the room according to the user selections
 @login_required
 def booking(request):
     if request.method == 'POST':
-        pass
+        # get required data
+        type_id = int(request.POST['type_id'])
+        qty = int(request.POST['quantity'])
+        check_in = datetime.strptime(request.POST['check_in'], "%Y-%m-%d")
+        check_out = datetime.strptime(request.POST['check_out'], "%Y-%m-%d")
+
+        room_type = Type.objects.get(id=type_id)
+        total_cost = qty * room_type.price
+        available_rooms = list(room_type.room_set.all().filter(status='a'))[:qty]
+
+        # calculate costs and save registration information
+        book = Registration(user=request.user.profile, occupants=qty * room_type.capacity, check_in_date=check_in,
+                            check_out_date=check_out, payment=total_cost)
+        book.save()
+
+        for room in available_rooms:
+            room.status = 'r'
+            room.save()
+            detail = RegistrationDetails(registration_id=book, room_id=room.id)
+            detail.save()
+
+        return redirect('index')
     else:
         return render(request, "web/booking.html", {})
