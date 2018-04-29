@@ -212,7 +212,7 @@ def booking(request):
         for room in available_rooms:
             room.status = 'r'
             room.save()
-            detail = RegistrationDetails(registration_id=book, room_id=room.id)
+            detail = RegistrationDetails(registration_id=book, room_id=room)
             detail.save()
 
         return redirect('index')
