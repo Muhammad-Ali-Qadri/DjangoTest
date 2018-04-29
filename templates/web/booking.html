@@ -6,11 +6,11 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <script>
-        var checkBoxes = $('body #defaultCheck1');
+        var checkBoxes = $('body #select_type');
         checkBoxes.change(function () {
             $('#book_btn').prop('disabled', checkBoxes.filter(':checked').length < 1);
         });
-        $('body #defaultCheck1').change();
+        $('body #select_type').change();
     </script>
 
     <div class="my-5 ml-5">
@@ -43,6 +43,9 @@
 
             </div>
         </form>
+
+    </div>
+    {% if available is not None %}
         <form method="post" action="{% url 'booking' %}">
             <div class="form-row">
                 <div class="form-group col-md-3">
@@ -54,11 +57,7 @@
                 </div>
             </div>
 
-        </form>
-    </div>
-
-    {% if available is not None %}
-        <div class="my-3 ml-5">
+            <div class="my-3 ml-5">
             <div class="row">
 
                 {% for zipped in available %}
@@ -67,6 +66,7 @@
                         <div class="card" style="width: 18rem;">
                             <label id="type_id" hidden>{{ zipped.0.id }}</label>
                             <label id="max_quantity" hidden>{{ zipped.1 }}</label>
+                            <label id="type_price" hidden>{{ zipped.0.price }}</label>
                             <img class="card-img-top" src="{{ zipped.2.public_id }}" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">{{ zipped.0.name }}</h5>
@@ -104,7 +104,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="">Qty</span>
                                 </div>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="quantity">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="">max : {{ zipped.1 }}	</span>
                                 </div>
@@ -112,8 +112,9 @@
                         </li>
                         <li class="list-group-item">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1">
+                                <input class="form-check-input" type="checkbox" value="" id="select_type"
+                                       name="select_type">
+                                <label class="form-check-label" for="select_type">
                                     &nbsp &nbsp Select Room
                                 </label>
                             </div>
@@ -127,6 +128,9 @@
         </div>
 
         </div>
+
+        </form>
+
 
     {% endif %}
 
