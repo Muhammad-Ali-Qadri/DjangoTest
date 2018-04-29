@@ -5,49 +5,98 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <script>
+        var checkBoxes = $('body #defaultCheck1');
+        checkBoxes.change(function () {
+            $('#book_btn').prop('disabled', checkBoxes.filter(':checked').length < 1);
+        });
+        $('body #defaultCheck1').change();
+    </script>
+
     <div class="my-5 ml-5">
-        <form>
+        <form method="post" action="{% url 'check' %}">
+            {% csrf_token %}
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="inputcheckin">Check in Date</label>
-                    <input type="date" class="form-control" id="inputcheckin">
+                    {% if check_in is not None %}
+                        <input type="date" class="form-control" id="inputcheckin" value="{{ check_in }}" name="check_in"
+                               required>
+                    {% else %}
+                        <input type="date" class="form-control" id="inputcheckin" value="5/05/2018" name="check_in"
+                               required>
+                    {% endif %}
                 </div>
                 <div class="form-group col-md-3">
                     <label for="inputcheckout">Check out Date</label>
-                    <input type="date" class="form-control" id="inputcheckout">
+                    {% if check_out is not None %}
+                        <input type="date" class="form-control" id="inputcheckout" value="{{ check_out }}"
+                               name="check_out" required>
+                    {% else %}
+                        <input type="date" class="form-control" id="inputcheckout" value="5/05/2018" name="check_out"
+                               required>
+                    {% endif %}
                 </div>
                 <div class="form-group col-md-5 my-4">
-
                     <button type="submit" class="btn btn-primary">CHECK</button>
                 </div>
+
             </div>
+        </form>
+        <form method="post" action="{% url 'booking' %}">
             <div class="form-row">
                 <div class="form-group col-md-3">
                     <label for="total">Total Amount</label>
                     <input type="text" class="form-control" id="total" placeholder="0.0Rs" readonly>
                 </div>
                 <div class="form-group col-md-5 my-4">
-                    <button type="submit" class="btn btn-primary">BOOK</button>
+                    <button type="submit" class="btn btn-primary" id="book_btn">BOOK</button>
                 </div>
             </div>
 
         </form>
     </div>
 
-    <div class="my-3 ml-5">
+    {% if available is not None %}
+        <div class="my-3 ml-5">
+            <div class="row">
 
-        <div class="row">
-            <div class="col-sm-auto">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="..." alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                            the card's content.</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"> wifi, etc....</li>
-                        <li class="list-group-item"> price</li>
+                {% for zipped in available %}
+
+                    <div class="col-sm-auto">
+                        <div class="card" style="width: 18rem;">
+                            <label id="type_id" hidden>{{ zipped.0.id }}</label>
+                            <label id="max_quantity" hidden>{{ zipped.1 }}</label>
+                            <img class="card-img-top" src="{{ zipped.2.public_id }}" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ zipped.0.name }}</h5>
+                                <p class="card-text">{{ zipped.0.description }}</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="items">
+                                        {% if zipped.0.has_air_conditioning %}
+                                            <li><a href="#"><span class="img1"> </span></a></li>
+                                        {% endif %}
+                                {% if zipped.0.has_dryer %}
+                                    <li><a href="#"><span class="img2"> </span></a></li>
+                                {% endif %}
+                                {% if zipped.0.has_room_service %}
+                                    <li><a href="#"><span class="img3"> </span></a></li>
+                                {% endif %}
+                                {% if zipped.0.has_electronic_safe %}
+                                    <li><a href="#"><span class="img4"> </span></a></li>
+                                {% endif %}
+                                {% if zipped.0.has_wifi %}
+                                    <li><a href="#"><span class="img5"> </span></a></li>
+                                {% endif %}
+                                {% if zipped.0.has_breakfast %}
+                                    <li><a href="#"><span class="img6"> </span></a></li>
+                                {% endif %}
+                        </div>
+                        </li>
+                        <li class="list-group-item"> Rs.{{ zipped.0.price }} per night</li>
+                        <li class="list-group-item"> Max {{ zipped.0.capacity }} persons</li>
                         <li class="list-group-item">
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -55,7 +104,7 @@
                                 </div>
                                 <input type="text" class="form-control">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="">max : 	</span>
+                                    <span class="input-group-text" id="">max : {{ zipped.1 }}	</span>
                                 </div>
                             </div>
                         </li>
@@ -67,16 +116,17 @@
                                 </label>
                             </div>
                         </li>
-                    </ul>
+                        </ul>
 
-                </div>
-            </div>
+                    </div>
+                    </div>
+
+                {% endfor %}
+        </div>
 
         </div>
 
-    </div>
-
-
+    {% endif %}
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

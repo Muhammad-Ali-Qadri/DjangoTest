@@ -133,8 +133,8 @@ def signup(request):
 
 
 @login_required
-def booking(request):
-    if request.method == 'GET':
+def check(request):
+    if request.method == 'POST':
         check_in = request.GET['check_in']
         check_out = request.GET['check_out']
 
@@ -160,7 +160,7 @@ def booking(request):
                 unavailable_rooms.append(detail.room_id)
 
         # get available rooms
-        available_rooms = list(set(Room.objects().exclude(room_id=unavailable_rooms)))
+        available_rooms = list(set(Room.objects().all().exclude(room_id=unavailable_rooms)))
 
         # get type and number of rooms associated with that type, they will be available to user
         available_types = []
@@ -169,4 +169,25 @@ def booking(request):
 
         available_types = Counter(available_types)
 
-        return render(request, "web/booking.html", {'available': sorted(available_types.items())})
+        # get type, room count and first image into a single zipped list
+        ty = []
+        count = []
+        images = []
+        for key, value in available_types:
+            ty.append(key)
+            count.append(value)
+            images.append(key.images_set.first())
+
+        return render(request, "web/booking.html",
+                      {'available': zip(ty, count, images), 'check_in': check_in, 'check_out': check_out})
+
+    else:
+        return redirect('booking')
+
+
+@login_required
+def booking(request):
+    if request.method == 'POST':
+        pass
+    else:
+        return render(request, "web/booking.html", {})

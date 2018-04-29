@@ -30,5 +30,6 @@ urlpatterns = [
     url('^profile/', polls.views.profile, name="profile"),
     url('^logout/', polls.views.my_logout, name="logout"),
     url('^booking/', polls.views.booking, name="booking"),
+    url('^check/', polls.views.check, name="check"),
     url('', polls.views.index, name="index"),
 ]
