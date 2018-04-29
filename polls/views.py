@@ -19,11 +19,12 @@ def index(request):
     return render(request, "web/index.html", {'rooms': rooms})
 
 
+# load facilities page
 def facilities(request):
-
     return render(request, "web/facilities.html", {})
 
 
+#load restuarant page
 def restaurant(request):
     return render(request, "web/restaurant.html", {})
 
@@ -61,6 +62,7 @@ def profile(request):
         address = request.POST['address']
         new_pic = request.FILES.get('newProfilePic')
 
+        #check for changes, only save changed data
         if first_name is not None:
             request.user.first_name = first_name
         if last_name is not None:
@@ -88,13 +90,14 @@ def my_login(request):
         password = request.POST['password']
         user = authenticate(username=username, password=password)
 
+        #if valid user
         if user is not None:
             login(request, user)
             if user.is_superuser:
-                return redirect('Admin')
+                return redirect('/admin/')
             return redirect('index')
         else:
-            return redirect('login')
+            return redirect('login')  #if invalid
     else:
         return render(request, "web/login.html")
 
