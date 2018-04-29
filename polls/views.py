@@ -176,10 +176,10 @@ def check(request):
         ty = []
         count = []
         images = []
-        for key, value in available_types:
-            ty.append(key)
-            count.append(value)
-            images.append(key.images_set.first())
+        for item in available_types:
+            ty.append(item)
+            count.append(available_types[item])
+            images.append(item.images_set.first())
 
         return render(request, "web/booking.html",
                       {'available': zip(ty, count, images), 'check_in': check_in, 'check_out': check_out})
