@@ -135,8 +135,8 @@ def signup(request):
 @login_required
 def check(request):
     if request.method == 'POST':
-        check_in = request.GET['check_in']
-        check_out = request.GET['check_out']
+        check_in = request.POST['check_in']
+        check_out = request.POST['check_out']
 
         # all these rooms cannot be shown
         # those regs that start before checkin and end within
