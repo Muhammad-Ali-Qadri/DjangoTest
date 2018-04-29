@@ -47,7 +47,8 @@
     </div>
     {% if available is not None %}
         <form method="post" action="{% url 'booking' %}">
-            <div class="form-row">
+            {% csrf_token %}
+            <div class="form-row ml-5">
                 <div class="form-group col-md-3">
                     <label for="total">Total Amount</label>
                     <input type="text" class="form-control" id="total" placeholder="0.0Rs" readonly>
@@ -67,7 +68,7 @@
                             <label id="type_id" hidden>{{ zipped.0.id }}</label>
                             <label id="max_quantity" hidden>{{ zipped.1 }}</label>
                             <label id="type_price" hidden>{{ zipped.0.price }}</label>
-                            <img class="card-img-top" src="{{ zipped.2.public_id }}" alt="Card image cap">
+                            <img class="card-img-top" src="{{ zipped.2.image.public_id }}" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title">{{ zipped.0.name }}</h5>
                                 <p class="card-text">{{ zipped.0.description }}</p>
