@@ -163,7 +163,7 @@ def check(request):
                 unavailable_rooms.append(detail.room_id)
 
         # get available rooms
-        available_rooms = list(set(Room.objects.all().exclude(room_id=unavailable_rooms)))
+        available_rooms = list(set(Room.objects.all().exclude(id=unavailable_rooms)))
 
         # get type and number of rooms associated with that type, they will be available to user
         available_types = []
