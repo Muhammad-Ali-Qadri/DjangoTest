@@ -1,4 +1,5 @@
 from collections import Counter
+from datetime import datetime
 
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -135,8 +136,8 @@ def signup(request):
 @login_required
 def check(request):
     if request.method == 'POST':
-        check_in = request.POST['check_in']
-        check_out = request.POST['check_out']
+        check_in = datetime.strptime(request.POST['check_in'], "%d/%m/%Y")
+        check_out = datetime.strptime(request.POST['check_out'], "%d/%m/%Y")
 
         # all these rooms cannot be shown
         # those regs that start before checkin and end within
@@ -162,7 +163,7 @@ def check(request):
                 unavailable_rooms.append(detail.room_id)
 
         # get available rooms
-        available_rooms = list(set(Room.objects().all().exclude(room_id=unavailable_rooms)))
+        available_rooms = list(set(Room.objects.all().exclude(room_id=unavailable_rooms)))
 
         # get type and number of rooms associated with that type, they will be available to user
         available_types = []
