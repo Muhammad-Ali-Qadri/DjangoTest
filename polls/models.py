@@ -6,6 +6,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+# models
+
 class Room(models.Model):
     # Fields
     id = models.AutoField(primary_key=True)
